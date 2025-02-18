@@ -1,0 +1,19 @@
+.SendForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+  min-height: 64px;
+  padding: 0 0 0 5px;
+  padding-bottom: 5px;
+  &__input {
+    width: 80%;
+    height: 28px;
+    border: none;
+    margin: 5px 0 5px 0;
+    padding: 9px 0 9px 16px;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+  }
+}

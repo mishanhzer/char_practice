@@ -1,0 +1,12 @@
+.App {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  margin: 50px auto;
+  width: 70%;
+  height: 740px;
+  border-radius: 10px;
+  background: url('../../assets//images//wallpaper.png') center center/cover no-repeat;
+}

@@ -1,0 +1,22 @@
+.appHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  background-color: #f0f2f5;
+  font-family:
+    Consolas,
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono,
+    DejaVu Sans Mono,
+    Bitstream Vera Sans Mono,
+    Courier New,
+    Courier,
+    monospace;
+  // position: fixed;
+}
