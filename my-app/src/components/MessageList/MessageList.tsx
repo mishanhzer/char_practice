@@ -1,10 +1,6 @@
-import React, { FC, useRef, useEffect } from 'react';
+import React, { FC, useRef, useEffect, useMemo } from 'react';
 import { useAppSelector } from '../../hooks/hook.ts'; // импортируем типизированный хук
-import * as dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import duration from 'dayjs/plugin/duration';
-import 'dayjs/locale/ru';
+import { weekNumber, weekday, boolToday, today, nowDate } from '../date/date.ts';
 
 import style from './MessageList.module.scss';
 import { messages, actionPayload } from './messageListSlice.ts';
@@ -12,27 +8,11 @@ import { messages, actionPayload } from './messageListSlice.ts';
 interface testRef {
   current?: HTMLDivElement;
 }
-dayjs.locale('ru');
-const date = dayjs(new Date());
-const nowData = dayjs().format('DD.MM.YYYY, HH:mm:ss');
-
-dayjs.extend(isToday);
-dayjs.extend(relativeTime);
-
-console.log(dayjs().fromNow());
-console.log(dayjs().isToday());
-
-const weekday = dayjs().format('dddd');
-const month = dayjs().format('MMMM');
-
-console.log(dayjs().add(1, 'day').format('YYYY-MM-DD'));
-console.log(dayjs().add(1, 'second').format('YYYY-MM-DD HH:mm:ss'));
 
 const MessageList: FC = () => {
   const messages = useAppSelector((state) => state.message.messages);
 
   const myRef: testRef = useRef();
-
   myRef.current?.scrollIntoView();
 
   useEffect(() => {
@@ -40,18 +20,24 @@ const MessageList: FC = () => {
     el?.scrollTo(0, el.scrollHeight);
   }, [messages]);
 
+  const test: string | number = useMemo(() => {
+    return boolToday ? today : !boolToday && weekNumber < 7 ? weekday : nowDate
+  }, [messages])
+
   return (
     <div className={style.messageList} ref={myRef}>
       <div className={style.messageList__wrapper}>
         <div className={style.messageList__get_message}>Get message</div>
-        <div className={style.messageList__date}>{weekday}</div>
+        {boolToday ? <div className={style.messageList__date}>
+          {test}
+        </div> : null}
         <Test messages={messages} />
       </div>
     </div>
   );
 };
 
-const Test = ({ messages }: messages) => {
+const Test: FC = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
       return (
@@ -60,9 +46,9 @@ const Test = ({ messages }: messages) => {
             <div className={style.messageList__set_message_text}>{item.message}</div>
             <div className={style.messageList__set_message_wrapperTime}>
               <div className={style.messageList__set_message_wrapperTime_time}>
-                {item.minutes < 10
-                  ? `${item.hours}:0${item.minutes}`
-                  : `${item.hours}:${item.minutes}`}
+                {item.Minutes < 10
+                  ? `${item.Hours}:0${item.Minutes}`
+                  : `${item.Hours}:${item.Minutes}`}
               </div>
               <div className={style.messageList__set_message_wrapperTime_img}>{svgTest}</div>
             </div>
@@ -75,7 +61,7 @@ const Test = ({ messages }: messages) => {
   });
 };
 
-const svgTest = (
+const svgTest: string = ( // хз как тут типизировать - поставил просто строку
   <svg
     viewBox="0 0 16 11"
     height="11"

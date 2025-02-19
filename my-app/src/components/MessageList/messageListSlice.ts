@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface actionPayload {
   id: string
   message: string
-  hours: number
-  minutes: number
+  Hours: number
+  Minutes: number
 }
 
 export interface messages {
@@ -20,7 +20,6 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action) => {
-      console.log(action.payload)
       state.messages.push(action.payload);
     },
   },

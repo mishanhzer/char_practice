@@ -1,35 +1,35 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+
+import { useAddDispatch } from '../../hooks/hook.ts';
 import { nanoid } from 'nanoid';
 
 import styles from './SendMessageForm.module.scss'; // добавление css модулей
 import { addMessage } from '../MessageList/messageListSlice.ts';
 
-export const date = new Date();
-const hours = date.getHours();
-const minutes = date.getMinutes();
+export const MainDate = new Date();
+const Hours = MainDate.getHours();
+const Minutes = MainDate.getMinutes();
 
 const SendMessageForm = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState<string>('');
+  const dispatch = useAddDispatch();
 
-  const dispatch = useDispatch();
-
-  const onSumbit = (e) => {
+  const onSumbit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const message = {
       id: nanoid(),
       message: text,
-      hours,
-      minutes,
+      Hours,
+      Minutes,
     };
 
     dispatch(addMessage(message));
     setText('');
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
