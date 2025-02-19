@@ -3,6 +3,7 @@ declare module "*.png"
 declare module "*.gif"
 declare module "*.jpg"
 declare module "*.scss"
+declare module "*.module.scss"
 
 // declare module "*.png" {
 //     const value: any;

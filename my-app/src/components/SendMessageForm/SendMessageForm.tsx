@@ -34,11 +34,11 @@ const SendMessageForm = () => {
   };
 
   return (
-    <form onSubmit={onSumbit} className={styles.SendForm} action="submit">
+    <form onSubmit={onSumbit} className={styles.sendForm} action="submit">
       <input
         onChange={handleChange}
         value={text}
-        className={styles.SendForm__input}
+        className={styles.sendForm__input}
         placeholder="Введите сообщение"
         type="text"
       />

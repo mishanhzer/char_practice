@@ -1,9 +1,9 @@
 import React from 'react';
-import './AppHeader.scss';
+import style from './AppHeader.module.scss';
 
 const AppHeader = () => {
   return (
-    <div className="appHeader">
+    <div className={style.appHeader}>
       <span>My chat app</span>
     </div>
   );

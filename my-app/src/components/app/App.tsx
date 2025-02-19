@@ -3,11 +3,11 @@ import AppHeader from '../appHeader/AppHeader.tsx';
 import SendMessageForm from '../SendMessageForm/SendMessageForm.tsx';
 import MessageList from '../MessageList/MessageList.tsx';
 
-import './App.scss';
+import style from './App.module.scss';
 
 const App = () => {
   return (
-    <div className="App">
+    <div className={style.app}>
       <AppHeader />
       <MessageList />
       <SendMessageForm />

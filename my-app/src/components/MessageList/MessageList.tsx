@@ -1,32 +1,32 @@
 import React, { FC, useRef, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/hook.ts'; // импортируем типизированный хук
 import * as dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import duration from 'dayjs/plugin/duration'
-import 'dayjs/locale/ru'
+import isToday from 'dayjs/plugin/isToday';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import duration from 'dayjs/plugin/duration';
+import 'dayjs/locale/ru';
 
-import './MessageList.scss';
+import style from './MessageList.module.scss';
 import { messages, actionPayload } from './messageListSlice.ts';
 
 interface testRef {
-  current?: HTMLDivElement
+  current?: HTMLDivElement;
 }
-dayjs.locale('ru')
-const date = dayjs(new Date())
-const nowData = dayjs().format('DD.MM.YYYY, HH:mm:ss')
+dayjs.locale('ru');
+const date = dayjs(new Date());
+const nowData = dayjs().format('DD.MM.YYYY, HH:mm:ss');
 
 dayjs.extend(isToday);
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
-console.log(dayjs().fromNow())
-console.log(dayjs().isToday()) 
+console.log(dayjs().fromNow());
+console.log(dayjs().isToday());
 
-const weekday = dayjs().format('dddd')
-const month = dayjs().format('MMMM')
+const weekday = dayjs().format('dddd');
+const month = dayjs().format('MMMM');
 
-console.log(dayjs().add(1, 'day').format('YYYY-MM-DD'))
-console.log(dayjs().add(1, 'second').format('YYYY-MM-DD HH:mm:ss'))
+console.log(dayjs().add(1, 'day').format('YYYY-MM-DD'));
+console.log(dayjs().add(1, 'second').format('YYYY-MM-DD HH:mm:ss'));
 
 const MessageList: FC = () => {
   const messages = useAppSelector((state) => state.message.messages);
@@ -41,11 +41,11 @@ const MessageList: FC = () => {
   }, [messages]);
 
   return (
-    <div className="MessageList" ref={myRef}>
-      <div className="MessageList__wrapper">
-        <div className="MessageList__get_message">Get message</div>
-        <div className="MessageList__date">{weekday}</div>
-        <Test messages={messages}/>
+    <div className={style.messageList} ref={myRef}>
+      <div className={style.messageList__wrapper}>
+        <div className={style.messageList__get_message}>Get message</div>
+        <div className={style.messageList__date}>{weekday}</div>
+        <Test messages={messages} />
       </div>
     </div>
   );
@@ -55,16 +55,16 @@ const Test = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
       return (
-        <div key={i} className="MessageList__set_message">
-          <div className="MessageList__set_message_wrapper">
-            <div className="MessageList__set_message_text">{item.message}</div>
-            <div className="MessageList__set_message_wrapperTime">
-              <div className="MessageList__set_message_wrapperTime_time">
+        <div key={i} className={style.messageList__set_message}>
+          <div className={style.messageList__set_message_wrapper}>
+            <div className={style.messageList__set_message_text}>{item.message}</div>
+            <div className={style.messageList__set_message_wrapperTime}>
+              <div className={style.messageList__set_message_wrapperTime_time}>
                 {item.minutes < 10
                   ? `${item.hours}:0${item.minutes}`
                   : `${item.hours}:${item.minutes}`}
               </div>
-              <div className="MessageList__set_message_wrapperTime_img">{svgTest}</div>
+              <div className={style.messageList__set_message_wrapperTime_img}>{svgTest}</div>
             </div>
           </div>
         </div>
