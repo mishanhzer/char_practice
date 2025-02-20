@@ -63,7 +63,7 @@
   }
   &__set_message {
     display: block;
-    height: 33px;
+    max-height: 100%;
     align-self: flex-end;
     overflow-wrap: break-word;
     min-width: 70px;

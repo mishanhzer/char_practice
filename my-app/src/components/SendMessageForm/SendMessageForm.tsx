@@ -1,15 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-
 import { useAddDispatch } from '../../hooks/hook.ts';
 import { nanoid } from 'nanoid';
 
-import styles from './SendMessageForm.module.scss'; // добавление css модулей
 import { addMessage } from '../MessageList/messageListSlice.ts';
+import {  hour, minutes, date, weekNumber } from '../date/date.ts';
 
-export const MainDate = new Date();
-const Hours = MainDate.getHours();
-const Minutes = MainDate.getMinutes();
+import styles from './SendMessageForm.module.scss'; 
 
 const SendMessageForm = () => {
   const [text, setText] = useState<string>('');
@@ -21,8 +18,10 @@ const SendMessageForm = () => {
     const message = {
       id: nanoid(),
       message: text,
-      Hours,
-      Minutes,
+      hour,
+      minutes,
+      date,
+      weekNumber
     };
 
     dispatch(addMessage(message));

@@ -1,13 +1,23 @@
-import React, { FC, useRef, useEffect, useMemo } from 'react';
-import { useAppSelector } from '../../hooks/hook.ts'; // импортируем типизированный хук
-import { weekNumber, weekday, boolToday, today, nowDate } from '../date/date.ts';
+import React, { FC, useRef, useEffect } from 'react';
+import { useAppSelector } from '../../hooks/hook.ts'; 
+import {
+  weekNumber,
+  weekDay,
+  nowDate,
+  date,
+} from '../date/date.ts';
+
+import { messages, actionPayload } from './messageListSlice.ts';
 
 import style from './MessageList.module.scss';
-import { messages, actionPayload } from './messageListSlice.ts';
 
 const MessageList: FC = () => {
   const messages = useAppSelector((state) => state.message.messages);
 
+  return <MainLogics messages={messages} />;
+};
+
+const MainLogics = ({ messages }) => {
   const myRef = useRef<HTMLDivElement>(null);
   myRef.current?.scrollIntoView();
 
@@ -16,24 +26,37 @@ const MessageList: FC = () => {
     el?.scrollTo(0, el.scrollHeight);
   }, [messages]);
 
-  const test = useMemo(() => {
-    return boolToday ? today : !boolToday && weekNumber < 7 ? weekday : nowDate
-  }, [messages])
+  const messagesDate = messages.map((item: actionPayload) => {
+    return {
+      date: item.date,
+      hour: item.hour,
+      minutes: item.minutes,
+      weekNumber,
+    };
+  });
+
+  const lastMessageDate = messagesDate[messagesDate.length - 1];
+
+  const nowTime =
+    date === lastMessageDate.date ? (
+      <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
+    ) : date !== lastMessageDate.date && lastMessageDate.weekNumber < 7 ? (
+      <div className={style.messageList__date}>{weekDay}</div>
+    ) : (
+      <div className={style.messageList__date}>{nowDate}</div>
+    );
 
   return (
     <div className={style.messageList} ref={myRef}>
       <div className={style.messageList__wrapper}>
-        <div className={style.messageList__get_message}>Get message</div>
-        {boolToday ? <div className={style.messageList__date}>
-          {test}
-        </div> : null}
-        <Test messages={messages} />
+        {nowTime}
+        <SetMessage messages={messages} />
       </div>
     </div>
   );
 };
 
-const Test = ({ messages }: messages) => {
+const SetMessage = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
       return (
@@ -42,9 +65,9 @@ const Test = ({ messages }: messages) => {
             <div className={style.messageList__set_message_text}>{item.message}</div>
             <div className={style.messageList__set_message_wrapperTime}>
               <div className={style.messageList__set_message_wrapperTime_time}>
-                {item.Minutes < 10
-                  ? `${item.Hours}:0${item.Minutes}`
-                  : `${item.Hours}:${item.Minutes}`}
+                {item.minutes < 10
+                  ? `${item.hour}:0${item.minutes}`
+                  : `${item.hour}:${item.minutes}`}
               </div>
               <div className={style.messageList__set_message_wrapperTime_img}>{svgTest}</div>
             </div>

@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface actionPayload {
   id: string
   message: string
-  Hours: number
-  Minutes: number
+  hour: number
+  minutes: number
+  date: number
+  weekNumber: number
 }
 
 interface action {
