@@ -7,6 +7,11 @@ export interface actionPayload {
   Minutes: number
 }
 
+interface action {
+  type: string,
+  payload: actionPayload
+}
+
 export interface messages {
   messages: actionPayload[]
 }
@@ -19,7 +24,7 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, action) => {
+    addMessage: (state, action: action) => {
       state.messages.push(action.payload);
     },
   },

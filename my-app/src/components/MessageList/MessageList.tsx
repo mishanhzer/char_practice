@@ -5,14 +5,10 @@ import { weekNumber, weekday, boolToday, today, nowDate } from '../date/date.ts'
 import style from './MessageList.module.scss';
 import { messages, actionPayload } from './messageListSlice.ts';
 
-interface testRef {
-  current?: HTMLDivElement;
-}
-
 const MessageList: FC = () => {
   const messages = useAppSelector((state) => state.message.messages);
 
-  const myRef: testRef = useRef();
+  const myRef = useRef<HTMLDivElement>(null);
   myRef.current?.scrollIntoView();
 
   useEffect(() => {
@@ -20,7 +16,7 @@ const MessageList: FC = () => {
     el?.scrollTo(0, el.scrollHeight);
   }, [messages]);
 
-  const test: string | number = useMemo(() => {
+  const test = useMemo(() => {
     return boolToday ? today : !boolToday && weekNumber < 7 ? weekday : nowDate
   }, [messages])
 
@@ -37,7 +33,7 @@ const MessageList: FC = () => {
   );
 };
 
-const Test: FC = ({ messages }: messages) => {
+const Test = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
       return (
@@ -61,7 +57,7 @@ const Test: FC = ({ messages }: messages) => {
   });
 };
 
-const svgTest: string = ( // хз как тут типизировать - поставил просто строку
+const svgTest = (
   <svg
     viewBox="0 0 16 11"
     height="11"
