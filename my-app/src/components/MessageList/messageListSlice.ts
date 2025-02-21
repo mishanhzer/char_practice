@@ -7,6 +7,7 @@ export interface actionPayload {
   minutes: number 
   date?: number 
   weekNumber: number
+  boolToday: boolean
 }
 
 interface action {

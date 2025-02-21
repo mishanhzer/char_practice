@@ -4,7 +4,7 @@ import { useAddDispatch } from '../../hooks/hook.ts';
 import { nanoid } from 'nanoid';
 
 import { addMessage } from '../MessageList/messageListSlice.ts';
-import {  hour, minutes, date, weekNumber } from '../date/date.ts';
+import { hour, minutes, date, weekNumber, boolToday } from '../date/date.ts';
 
 import styles from './SendMessageForm.module.scss'; 
 
@@ -21,7 +21,8 @@ const SendMessageForm = () => {
       hour,
       minutes,
       date,
-      weekNumber
+      weekNumber,
+      boolToday
     };
 
     dispatch(addMessage(message));

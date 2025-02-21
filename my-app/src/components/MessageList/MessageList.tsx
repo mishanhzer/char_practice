@@ -1,6 +1,6 @@
 import React, { Fragment, FC, useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useAppSelector } from '../../hooks/hook.ts';
-import { weekNumber, weekDay, nowDate, date } from '../date/date.ts';
+import { weekNumber, weekDay, nowDate, date, boolToday } from '../date/date.ts';
 
 import { messages, actionPayload } from './messageListSlice.ts';
 
@@ -12,7 +12,7 @@ const MessageList: FC = () => {
   return <MainLogics messages={messages} />;
 };
 
-const MainLogics = ({ messages }) => {
+const MainLogics = ({ messages }: messages) => {
   const myRef = useRef<HTMLDivElement>(null);
   myRef.current?.scrollIntoView();
 
@@ -25,10 +25,6 @@ const MainLogics = ({ messages }) => {
     <div className={style.messageList} ref={myRef}>
       <div className={style.messageList__wrapper}>
         <SetMessage messages={messages} />
-        {/* {date === lastMessageDate ? <div>
-          <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
-          <SetMessage messages={messages} />
-        </div> : null} */}
       </div>
     </div>
   );
@@ -37,13 +33,13 @@ const MainLogics = ({ messages }) => {
 const SetMessage = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
-      const testik = date === item.date ? (
+      const testik = item.boolToday ? (
         <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
       ) : date !== item.date && item.weekNumber < 7 ? (
         <div className={style.messageList__date}>{weekDay}</div>
       ) : (
         <div className={style.messageList__date}>{nowDate}</div>
-      )
+      );
       return (
         <Fragment key={i}>
           {testik}

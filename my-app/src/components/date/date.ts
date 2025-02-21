@@ -7,11 +7,6 @@ dayjs.locale('ru');
 dayjs.extend(isToday);
 dayjs.extend(weekday)
 
-console.log(dayjs().weekday(3).format('DD.MM.YYYY'))
-
-const dayOfObject = dayjs().endOf('day')
-console.log(dayOfObject.format('DD.MM.YYYY  '))
-
 export const weekNumber = +dayjs().format('d');
 export const weekDay = dayjs().format('dddd').toUpperCase();
 export const boolToday = dayjs().isToday();
