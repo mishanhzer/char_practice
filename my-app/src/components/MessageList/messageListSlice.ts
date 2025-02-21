@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface actionPayload {
+export interface ActionPayload {
   id: string
   message: string
   hour?: number
@@ -10,16 +10,16 @@ export interface actionPayload {
   boolToday: boolean
 }
 
-interface action {
+interface Action {
   type: string,
-  payload: actionPayload
+  payload:ActionPayload
 }
 
-export interface messages {
-  messages: actionPayload[]
+export interface Messages {
+  messages: ActionPayload[]
 }
 
-const initialState: messages = {
+const initialState: Messages = {
   messages: [],
 };
 
@@ -27,7 +27,7 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, action: action) => {
+    addMessage: (state, action: Action) => {
       state.messages.push(action.payload);
     },
   },

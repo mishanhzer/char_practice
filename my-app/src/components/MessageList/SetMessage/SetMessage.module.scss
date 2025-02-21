@@ -1,0 +1,96 @@
+.setMessage {
+  display: block;
+  max-height: 100%;
+  align-self: flex-end;
+  overflow-wrap: break-word;
+  min-width: 70px;
+  max-width: 50%;
+  background-color: #c4f9c3;
+  margin: 0 50px 0 0;
+  border-radius: 10px 0px 10px 10px;
+  border: 1px solid lightgray;
+  padding: 6px 7px 3px 5px;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: 0px 0.3px 0px 0px rgba(140, 153, 163, 0.6);
+    &:before {
+      content: '';
+      height: 13px;
+      width: 12px;
+      position: absolute;
+      top: 0;
+      right: -3px;
+      background-color: #c4f9c3;
+      transform: skew(-30deg);
+      box-shadow: 1px 0px 0px 0px rgba(140, 153, 163, 0.2);
+    }
+    &_text {
+      margin: 0 52px 0 5px;
+      font-size: 14.2px;
+      text-align: start;
+      line-height: 19px;
+      font-weight: 450;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        'Open Sans',
+        'Helvetica Neue',
+        sans-serif;
+    }
+    &_wrapperTime {
+      display: flex;
+      justify-content: flex-end;
+      height: 3px;
+      &_time {
+        margin: 0 0 0 18px;
+        align-self: flex-end;
+        color: #667781;
+        font-size: 11px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      &_img {
+        margin: 0 0 0 5px;
+        align-self: end;
+        svg {
+          padding: 5px 0 0;
+          align-self: flex-end;
+          color: #53bdeb;
+        }
+      }
+    }
+}
+
+.date {
+  display: inline-block;
+  margin: 15px 0;
+  text-transform: uppercase;
+  height: 30px;
+  max-width: 100%;
+  background-color: white;
+  align-self: center;
+  padding: 5px 12px 6px;
+  font-weight: 450;
+  font-size: 12.5px;
+  line-height: 21px;
+  color: #54656f;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  box-shadow: 0px 0.3px 0px 0px rgba(140, 153, 163, 0.6);
+  border-radius: 7.5px;
+}
