@@ -1,11 +1,6 @@
-import React, { FC, useRef, useEffect } from 'react';
-import { useAppSelector } from '../../hooks/hook.ts'; 
-import {
-  weekNumber,
-  weekDay,
-  nowDate,
-  date,
-} from '../date/date.ts';
+import React, { Fragment, FC, useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useAppSelector } from '../../hooks/hook.ts';
+import { weekNumber, weekDay, nowDate, date } from '../date/date.ts';
 
 import { messages, actionPayload } from './messageListSlice.ts';
 
@@ -26,31 +21,14 @@ const MainLogics = ({ messages }) => {
     el?.scrollTo(0, el.scrollHeight);
   }, [messages]);
 
-  const messagesDate = messages.map((item: actionPayload) => {
-    return {
-      date: item.date,
-      hour: item.hour,
-      minutes: item.minutes,
-      weekNumber,
-    };
-  });
-
-  const lastMessageDate = messagesDate[messagesDate.length - 1];
-
-  const nowTime =
-    date === lastMessageDate.date ? (
-      <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
-    ) : date !== lastMessageDate.date && lastMessageDate.weekNumber < 7 ? (
-      <div className={style.messageList__date}>{weekDay}</div>
-    ) : (
-      <div className={style.messageList__date}>{nowDate}</div>
-    );
-
   return (
     <div className={style.messageList} ref={myRef}>
       <div className={style.messageList__wrapper}>
-        {nowTime}
         <SetMessage messages={messages} />
+        {/* {date === lastMessageDate ? <div>
+          <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
+          <SetMessage messages={messages} />
+        </div> : null} */}
       </div>
     </div>
   );
@@ -59,20 +37,30 @@ const MainLogics = ({ messages }) => {
 const SetMessage = ({ messages }: messages) => {
   return messages.map((item: actionPayload, i: number) => {
     if (item && item.message.length > 0) {
+      const testik = date === item.date ? (
+        <div className={style.messageList__date}>{'СЕГОДНЯ'}</div>
+      ) : date !== item.date && item.weekNumber < 7 ? (
+        <div className={style.messageList__date}>{weekDay}</div>
+      ) : (
+        <div className={style.messageList__date}>{nowDate}</div>
+      )
       return (
-        <div key={i} className={style.messageList__set_message}>
-          <div className={style.messageList__set_message_wrapper}>
-            <div className={style.messageList__set_message_text}>{item.message}</div>
-            <div className={style.messageList__set_message_wrapperTime}>
-              <div className={style.messageList__set_message_wrapperTime_time}>
-                {item.minutes < 10
-                  ? `${item.hour}:0${item.minutes}`
-                  : `${item.hour}:${item.minutes}`}
+        <Fragment key={i}>
+          {testik}
+          <div className={style.messageList__set_message}>
+            <div className={style.messageList__set_message_wrapper}>
+              <div className={style.messageList__set_message_text}>{item.message}</div>
+              <div className={style.messageList__set_message_wrapperTime}>
+                <div className={style.messageList__set_message_wrapperTime_time}>
+                  {item.minutes < 10
+                    ? `${item.hour}:0${item.minutes}`
+                    : `${item.hour}:${item.minutes}`}
+                </div>
+                <div className={style.messageList__set_message_wrapperTime_img}>{svgTest}</div>
               </div>
-              <div className={style.messageList__set_message_wrapperTime_img}>{svgTest}</div>
             </div>
           </div>
-        </div>
+        </Fragment>
       );
     } else {
       return null;
