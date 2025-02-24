@@ -18,7 +18,10 @@ const MainLogics = ({ messages }: Messages) => {
 
   useEffect(() => {
     const el = ref.current;
-    el?.scrollTo(0, el.scrollHeight);
+    el?.scrollBy({
+      top: el.scrollHeight,
+      left: 0
+    });
   }, [messages]);
 
   return (
