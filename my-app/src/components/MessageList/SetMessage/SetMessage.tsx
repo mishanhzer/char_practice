@@ -11,9 +11,6 @@ import { SvgImg } from '../svgMessage/SvgImg.tsx';
 import style from './SetMessage.module.scss';
 
 const startDay = dayjs().subtract(0, 'day').startOf('day').format('DD/MM/YYYY HH:mm:ss');
-console.log(startDay);
-
-// console.log(dayjs().subtract(0, 'day').endOf('day').format('DD/MM/YYYY HH:mm:ss'));
 
 export const SetMessage = ({ messages }: Messages) => {
   return messages.map((item: ActionPayload, i: number) => {
