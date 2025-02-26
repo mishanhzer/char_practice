@@ -23,3 +23,32 @@
     }
 }
 
+.date {
+  display: inline-block;
+  margin: 15px 0;
+  text-transform: uppercase;
+  height: 30px;
+  max-width: 100%;
+  background-color: white;
+  align-self: center;
+  padding: 5px 12px 6px;
+  font-weight: 450;
+  font-size: 12.5px;
+  line-height: 21px;
+  color: #54656f;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  box-shadow: 0px 0.3px 0px 0px rgba(140, 153, 163, 0.6);
+  border-radius: 7.5px;
+}
+
